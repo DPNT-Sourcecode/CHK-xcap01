@@ -95,13 +95,17 @@ def checkout(skus):
 
 def calculate_basket_cost(skus, apply_discount):
     price = 0
-
+    combo_price = 0
     basket = ''.join(sorted(skus))
+
+    if apply_discount:
+        for combo_rule in price_rules.combo_rules.items():
+            found = 0
+            if combo_rule[0] in basket:
+
+
     updated_basket = basket
     discounted_items = ''
-
-    for sku in price_rules.combo_rules.items():
-        print(sku)
 
     for quantity, items in price_rules.rules.items():
         for item, item_details in items.items():
@@ -121,6 +125,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
