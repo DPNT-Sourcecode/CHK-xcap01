@@ -39,11 +39,25 @@ class PricingRules(object):
 
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
+    def __process_special_offers(self, sku, unit_price, offer_detail):
+        for offer in offer_detail.split(','):
+            offer = offer.strip()
+            if "for" in offer:
+                self.__add_rule(offer[1],
+
+
+
+
     def initialize(self):
         for n, line in enumerate(self._given_rules[1:-1].split('\n')):
             values = [value.strip() for value in line.split('|')[1:-1]]
             if len(values) > 0:
+                sku = values[0]
+                unit_price = int(values[1])
+                offer_detail = values[2]
                 self.__add_rule(values[0], int(values[1]))
+                if len(offer_detail) > 0:
+                    self.__process_special_offers(sku, unit_price, offer_detail)
 
     def get_individual_item_price(self, item):
         return self.rules[1][item]['Price']
@@ -130,4 +144,5 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
