@@ -27,16 +27,16 @@ def checkout(skus):
 
     price = 0
 
-    items = ''.join(sorted(skus))
+    basket = ''.join(sorted(skus))
 
     for quantity, items in price_rules.rules.items():
         for item, item_price in items.items():
             item_pattern = item * quantity
-            if item_pattern in items:
+            if item_pattern in basket:
                 price += item_price * skus.count(item_pattern)
-                items = items.replace(item_pattern, '')
+                basket = basket.replace(item_pattern, '')
 
-        if len(items) > 0:
+        if len(basket) > 0:
             return -1
 
     return price
