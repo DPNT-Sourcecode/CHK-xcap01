@@ -80,6 +80,10 @@ class PricingRules(object):
     def rules(self):
         return OrderedDict(reversed(sorted(self._rules.items())))
 
+    @property
+    def combo_rules(self):
+        return OrderedDict(reversed(sorted(self._combo_rules.items())))
+
 
 price_rules = PricingRules()
 price_rules.initialize()
@@ -114,6 +118,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
