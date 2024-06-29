@@ -1,5 +1,6 @@
 # noinspection PyUnusedLocal
 from collections import OrderedDict
+import math
 
 
 class PricingRules(object):
@@ -106,7 +107,7 @@ def calculate_basket_cost(skus, apply_discount):
                 for sku in relevant_skus:
                     if sku in basket:
                         found += 1
-                number_of_discounts = found % int(combo_rule[1]['Quantity'])
+                number_of_discounts = math.floor(found / int(combo_rule[1]['Quantity']))
                 while number_of_discounts > 0:
                     removed = 0
                     combo_price += int(combo_rule[1]['Price'])
@@ -114,6 +115,7 @@ def calculate_basket_cost(skus, apply_discount):
                         for sku in relevant_skus:
                             if sku in basket:
                                 basket.replace(sku, '', 1)
+                                removed += 1
 
     updated_basket = basket
     discounted_items = ''
@@ -136,4 +138,5 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price + combo_price
+
 
