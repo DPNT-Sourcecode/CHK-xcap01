@@ -5,7 +5,7 @@ class PricingRules(object):
     def __init__(self):
         self._rules = {}
 
-    def add_rule(self, item, price, quantity=1):
+    def add_rule(self, item, price, quantity=1, free_item=''):
         if quantity not in self._rules:
             self._rules[quantity] = {}
 
@@ -22,8 +22,11 @@ def checkout(skus):
     price_rules.add_rule('B', 30)
     price_rules.add_rule('C', 20)
     price_rules.add_rule('D', 15)
+    price_rules.add_rule('E', 40)
     price_rules.add_rule('A', 130, 3)
     price_rules.add_rule('B', 45, 2)
+    price_rules.add_rule('A', 200, 5)
+    price_rules.add_rule('E', 40, 2, 'B')
 
     price = 0
 
@@ -40,3 +43,4 @@ def checkout(skus):
         return -1
 
     return price
+
