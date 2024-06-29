@@ -55,6 +55,7 @@ class PricingRules(object):
 
 price_rules = PricingRules()
 price_rules.initialize()
+print(price_rules.rules)
 
 
 # price_rules = PricingRules()
@@ -130,6 +131,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
