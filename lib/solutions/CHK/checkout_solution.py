@@ -100,6 +100,9 @@ def calculate_basket_cost(skus, apply_discount):
     updated_basket = basket
     discounted_items = ''
 
+    for sku in price_rules.combo_rules.items():
+        print(sku)
+
     for quantity, items in price_rules.rules.items():
         for item, item_details in items.items():
             item_pattern = item * quantity
@@ -118,6 +121,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
