@@ -48,7 +48,7 @@ def checkout(skus):
                 if item_details['Free'] != '':
                     if item_details['Free'] in original_basket:
                         original_basket = original_basket.replace(item_details['Free'], '', 1)
-                        discounted_items += item_details['Free']
+                        discounted_items += item_details['Free'] * basket.count(item_pattern)
                 basket = basket.replace(item_pattern, '')
 
     if len(basket) > 0:
@@ -58,6 +58,7 @@ def checkout(skus):
         total_discounts = checkout(discounted_items)
 
     return price - total_discounts
+
 
 
 
