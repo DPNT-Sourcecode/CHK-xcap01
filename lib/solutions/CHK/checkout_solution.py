@@ -38,6 +38,7 @@ def checkout(skus):
 
     basket = ''.join(sorted(skus))
     original_basket = basket
+    discounted_items = ''
 
     for quantity, items in price_rules.rules.items():
         for item, item_details in items.items():
@@ -46,17 +47,12 @@ def checkout(skus):
                 price += item_details['Price'] * basket.count(item_pattern)
                 if item_details['Free'] != '':
                     if item_details['Free'] in original_basket:
-                        discount = price_rules.get_individual_item_price(item_details['Free'])
+                        total_discounts = price_rules.get_individual_item_price(item_details['Free'])
                         original_basket = original_basket.replace(item_details['Free'], '', 1)
+                        discounted_items += item_details['Free']
                 basket = basket.replace(item_pattern, '')
 
     if len(basket) > 0:
         return -1
 
     return price
-
-
-
-
-
-
