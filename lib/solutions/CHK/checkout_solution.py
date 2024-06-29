@@ -104,6 +104,12 @@ def calculate_basket_cost(skus, apply_discount):
             found = 0
             if combo_rule[0] in basket:
                 relevant_skus = set(combo_rule[0]).union(set(combo_rule[1]['Skus']))
+                sku_prices = {}
+                for sku in relevant_skus:
+                    sku_price = price_rules.get_individual_item_price(sku)
+                    if sku_price not in sku_prices:
+                        sku_prices[sku] = {}
+                    sku_prices[sku] = set(ku_prices[sku]
                 for sku in relevant_skus:
                     if sku in basket:
                         found += 1
@@ -141,3 +147,4 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price + combo_price
+
