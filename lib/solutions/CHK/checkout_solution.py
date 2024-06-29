@@ -43,15 +43,17 @@ def checkout(skus):
             item_pattern = item * quantity
             if item_pattern in basket:
                 price += item_details['Price'] * basket.count(item_pattern)
-                basket = basket.replace(item_pattern, '')
                 if item_details['Free'] != '':
                     if item_details['Free'] in original_basket:
-                        price -= price_rules.get_individual_item_price(item_details['Free'])
+                        discount = price_rules.get_individual_item_price(item_details['Free']) * basket.count(item_pattern)
+                        price -= discount
                         original_basket = original_basket.replace(item_details['Free'], '', 1)
+                basket = basket.replace(item_pattern, '')
 
     if len(basket) > 0:
         return -1
 
     return price
+
 
 
