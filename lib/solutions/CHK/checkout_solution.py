@@ -32,7 +32,10 @@ price_rules.add_rule('A', 200, 5)
 
 # skus = unicode string
 def checkout(skus):
+    return calculate_basket_cost(skus, True)
 
+
+def calculate_basket_cost(skus, apply_discount):
     price = 0
 
     basket = ''.join(sorted(skus))
@@ -45,7 +48,7 @@ def checkout(skus):
             if item_pattern in basket:
                 price += item_details['Price'] * basket.count(item_pattern)
                 if item_details['Free'] != '':
-                    if item_details['Free'] in updated_basket:
+                    if apply_discount & item_details['Free'] in updated_basket:
                         updated_basket = updated_basket.replace(item_details['Free'], '', 1)
                         discounted_items += item_details['Free'] * basket.count(item_pattern)
                 basket = basket.replace(item_pattern, '')
@@ -54,7 +57,8 @@ def checkout(skus):
         return -1
 
     if len(discounted_items) > 0:
-        return checkout(updated_basket)
+        return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
