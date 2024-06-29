@@ -29,7 +29,7 @@ def checkout(skus):
     price_rules.add_rule('A', 130, 3)
     price_rules.add_rule('B', 45, 2)
     price_rules.add_rule('A', 200, 5)
-    price_rules.add_rule('E', 40, 2, 'B')
+    price_rules.add_rule('E', 80, 2, 'B')
 
     price = 0
 
@@ -52,6 +52,7 @@ def checkout(skus):
         return -1
 
     return price
+
 
 
 
