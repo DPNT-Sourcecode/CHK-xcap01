@@ -5,6 +5,7 @@ from collections import OrderedDict
 class PricingRules(object):
     def __init__(self):
         self._rules = {}
+        self._combo_rules = {}
         self._given_rules = '''
             | A    | 50    | 3A for 130, 5A for 200          |
             | B    | 30    | 2B for 45                       |
@@ -44,7 +45,7 @@ class PricingRules(object):
         for offer in offer_detail.split(', '):
             offer = offer.strip()
             if "buy any" in offer:
-                here = True
+
             elif "for" in offer:
                 self.__add_rule(offer[1], int(offer[7:]), int(offer[0]))
             elif "get one" in offer:
@@ -149,6 +150,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
