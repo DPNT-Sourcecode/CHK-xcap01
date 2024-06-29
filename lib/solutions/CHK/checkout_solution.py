@@ -35,7 +35,5 @@ def checkout(skus):
             if item_pattern in items:
                 price += item_price * skus.count(item_pattern)
                 items = items.replace(item_pattern, '')
-            else:
-                return -1
 
     return price
