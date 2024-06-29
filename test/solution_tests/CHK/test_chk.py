@@ -35,6 +35,18 @@ class TestCheckout():
     def test_multi_sku_offer(self):
         assert checkout_solution.checkout('STXYZ') == 82
 
+    # - {"method": "checkout", "params": ["STXSTX"], "id": "CHK_R5_140"}, expected: 90, got: 99
+    # - {"method": "checkout", "params": ["SSS"], "id": "CHK_R5_141"}, expected: 45, got: 60
+    # - {"method": "checkout", "params": ["SSSZ"], "id": "CHK_R5_141"}, expected: 65, got: 81
+
+    def test_CHK_R5_140(self):
+        assert checkout_solution.checkout("STXSTX") == 90
+
+    def test_CHK_R5_141(self):
+        assert checkout_solution.checkout("SSSZ") == 65
+
+
+
     def test_invalid_item(self):
         assert checkout_solution.checkout('AB1') == -1
 
@@ -43,5 +55,6 @@ class TestCheckout():
 
     def test_lots_of_H(self):
         assert checkout_solution.checkout('HHHHHHHHHH') == 80
+
 
 
