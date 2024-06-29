@@ -6,6 +6,24 @@ class PricingRules(object):
     def __init__(self):
         self._rules = {}
         self._given_rules = '''
+            | A    | 50    | 3A for 130, 5A for 200          |
+            | B    | 30    | 2B for 45                       |
+            | C    | 20    |                                 |
+            | D    | 15    |                                 |
+            | E    | 40    | 2E get one B free               |
+            | F    | 10    | 2F get one F free               |
+            | G    | 20    |                                 |
+            | H    | 10    | 5H for 45, 10H for 80           |
+            | I    | 35    |                                 |
+            | J    | 60    |                                 |
+            | K    | 70    | 2K for 120                      |
+            | L    | 90    |                                 |
+            | M    | 15    |                                 |
+            | N    | 40    | 3N get one M free               |
+            | O    | 10    |                                 |
+            | P    | 50    | 5P for 200                      |
+            | Q    | 30    | 3Q for 80                       |
+            | R    | 50    | 3R get one Q free               |
             | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
             | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
             | U    | 40    | 3U get one U free               |
@@ -23,7 +41,7 @@ class PricingRules(object):
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def __process_special_offers(self, sku, unit_price, offer_detail):
-        for offer in offer_detail.split(','):
+        for offer in offer_detail.split(', '):
             offer = offer.strip()
             if "buy any" in offer:
                 here = True
@@ -131,5 +149,6 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
