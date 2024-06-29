@@ -41,11 +41,15 @@ class PricingRules(object):
 
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
+    def __add_combo_rule(self, skus, price, quantity):
+        if skus not in self._combo_rules:
+            self._combo_rules[skus] = {}
+
     def __process_special_offers(self, sku, unit_price, offer_detail):
         for offer in offer_detail.split(', '):
             offer = offer.strip()
             if "buy any" in offer:
-
+                here = True
             elif "for" in offer:
                 self.__add_rule(offer[1], int(offer[7:]), int(offer[0]))
             elif "get one" in offer:
@@ -150,6 +154,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
