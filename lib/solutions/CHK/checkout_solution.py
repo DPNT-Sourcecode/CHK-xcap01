@@ -38,6 +38,15 @@ price_rules.add_rule('N', 40)
 price_rules.add_rule('O', 10)
 price_rules.add_rule('P', 50)
 price_rules.add_rule('Q', 30)
+price_rules.add_rule('R', 50)
+price_rules.add_rule('S', 30)
+price_rules.add_rule('T', 20)
+price_rules.add_rule('U', 40)
+price_rules.add_rule('V', 50)
+price_rules.add_rule('W', 20)
+price_rules.add_rule('X', 90)
+price_rules.add_rule('Y', 10)
+price_rules.add_rule('Z', 50)
 price_rules.add_rule('A', 130, 3)
 price_rules.add_rule('A', 200, 5)
 price_rules.add_rule('B', 45, 2)
@@ -49,6 +58,11 @@ price_rules.add_rule('K', 150, 2)
 price_rules.add_rule('N', 120, 3, 'M')
 price_rules.add_rule('P', 200, 5)
 price_rules.add_rule('Q', 80, 3)
+price_rules.add_rule('R', 150, 3, 'Q')
+price_rules.add_rule('U', 120, 4)
+price_rules.add_rule('V', 90, 2)
+price_rules.add_rule('V', 150, 3)
+
 # skus = unicode string
 def checkout(skus):
     return calculate_basket_cost(skus, True)
@@ -79,4 +93,5 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
