@@ -53,7 +53,7 @@ class PricingRules(object):
             offer = offer.strip()
             if "buy any" in offer:
                 elements = offer.split(" ")
-
+                self.__add_combo_rule(elements[4][1:-1].split(','), int(elements[6]), int(elements[2]))
             elif "for" in offer:
                 self.__add_rule(offer[1], int(offer[7:]), int(offer[0]))
             elif "get one" in offer:
@@ -114,5 +114,6 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
