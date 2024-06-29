@@ -47,10 +47,11 @@ def checkout(skus):
                 if item_details['Free'] != '':
                     if item_details['Free'] in original_basket:
                         price -= price_rules.get_individual_item_price(item_details['Free'])
-                        original_basket.replace(item_details['Free'], '', 1)
+                        original_basket = original_basket.replace(item_details['Free'], '', 1)
 
     if len(basket) > 0:
         return -1
 
     return price
+
 
