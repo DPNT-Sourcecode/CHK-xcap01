@@ -113,8 +113,7 @@ def calculate_basket_cost(skus, apply_discount):
                     else:
                         sku_prices[sku_price].add(sku)
                 for sku in relevant_skus:
-                    if sku in basket:
-                        found += 1
+                    found += basket.count(sku)
                 number_of_discounts = math.floor(found / int(combo_rule[1]['Quantity']))
                 while number_of_discounts > 0:
                     removed = 0
@@ -153,6 +152,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price + combo_price
+
 
 
 
