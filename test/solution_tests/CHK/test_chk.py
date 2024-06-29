@@ -9,7 +9,7 @@ class TestCheckout():
         assert checkout_solution.checkout('E') == 40
 
     def test_simple_offer(self):
-        assert checkout_solution.checkout('AAA') == 130
+        assert checkout_solution.checkout('AAAAAAAA') == 330
 
     def test_multiple_free_items(self):
         assert checkout_solution.checkout('EEEEBB') == 160
@@ -34,5 +34,6 @@ class TestCheckout():
 
     def test_invalid_item(self):
         assert checkout_solution.checkout('AB1') == -1
+
 
 

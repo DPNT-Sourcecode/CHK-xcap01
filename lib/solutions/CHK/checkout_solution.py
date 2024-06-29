@@ -44,6 +44,9 @@ class PricingRules(object):
             offer = offer.strip()
             if "for" in offer:
                 self.__add_rule(offer[1], int(offer[7:]), int(offer[0]))
+            elif "get one" in offer:
+                if offer[1] == sku:
+
 
     def initialize(self):
         for n, line in enumerate(self._given_rules[1:-1].split('\n')):
@@ -141,6 +144,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
