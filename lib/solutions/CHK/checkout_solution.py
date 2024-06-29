@@ -31,6 +31,7 @@ def checkout(skus):
     price = 0
 
     basket = ''.join(sorted(skus))
+    original_basket = basket
 
     for quantity, items in price_rules.rules.items():
         for item, item_price in items.items():
@@ -43,4 +44,5 @@ def checkout(skus):
         return -1
 
     return price
+
 
