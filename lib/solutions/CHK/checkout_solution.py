@@ -1,3 +1,4 @@
+# noinspection PyUnusedLocal
 from collections import OrderedDict
 
 class PricingRules(object):
@@ -12,26 +13,20 @@ class PricingRules(object):
 
     @property
     def rules(self):
-        return self._rules
+        return OrderedDict(reversed(sorted(self._rules.items())))
 
-
-
-# noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    prices = {'A': 50, 'B': 30, 'C': 20, 'D': 15}
+    price_rules = PricingRules()
+    price_rules.add_rule('A', 50)
+    price_rules.add_rule('B', 30)
+    price_rules.add_rule('C', 20)
+    price_rules.add_rule('D', 15)
+    price_rules.add_rule('A', 130, 3)
+    price_rules.add_rule('B', 45, 2)
 
-    total = 0
-    basket = skus.split()
-    for sku in basket:
-        try:
-            if (item[])
-            total += prices[sku]
-        except:
-            return -1
-
-    return total
-
+    for quantity, item in price_rules.rules.items():
+        for sku in skus:
 
 
 
