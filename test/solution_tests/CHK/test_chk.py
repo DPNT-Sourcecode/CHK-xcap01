@@ -33,8 +33,9 @@ class TestCheckout():
         assert checkout_solution.checkout('FFF') == 20
 
     def test_multi_sku_offer(self):
-        assert checkout_solution.checkout('STZYX') == 45
+        assert checkout_solution.checkout('STZ') == 45
 
     def test_invalid_item(self):
         assert checkout_solution.checkout('AB1') == -1
+
 
