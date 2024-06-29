@@ -6,7 +6,15 @@ class PricingRules(object):
     def __init__(self):
         self._rules = {}
         self._given_rules = '''
-            | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |'''
+            | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | U    | 40    | 3U get one U free               |
+            | V    | 50    | 2V for 90, 3V for 130           |
+            | W    | 20    |                                 |
+            | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
+'''
 
     def __add_rule(self, item, price, quantity=1, free_item=''):
         if quantity not in self._rules:
@@ -123,4 +131,5 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
