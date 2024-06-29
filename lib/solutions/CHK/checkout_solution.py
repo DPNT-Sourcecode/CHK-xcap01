@@ -41,11 +41,10 @@ class PricingRules(object):
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def initialize(self):
-
         for n, line in enumerate(self._given_rules[1:-1].split('\n')):
             values = [value.strip() for value in line.split('|')[1:-1]]
             self.__add_rule(values[0], values[1])
-            
+
     def get_individual_item_price(self, item):
         return self.rules[1][item]['Price']
 
@@ -54,7 +53,8 @@ class PricingRules(object):
         return OrderedDict(reversed(sorted(self._rules.items())))
 
 
-price_rules = rules_table_to_rules(given_rules)
+price_rules = PricingRules()
+price_rules.initialize()
 
 
 # price_rules = PricingRules()
@@ -130,6 +130,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
