@@ -41,7 +41,7 @@ class PricingRules(object):
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def initialize(self):
-        for n, line in enumerate(self._given_rules[1:-1].split('\n')):
+        for n, line in enumerate(self._given_rules[1:-2].split('\n')):
             values = [value.strip() for value in line.split('|')[1:-1]]
             self.__add_rule(values[0], values[1])
 
@@ -131,6 +131,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
