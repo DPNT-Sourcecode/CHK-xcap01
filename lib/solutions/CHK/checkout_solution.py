@@ -1,6 +1,7 @@
 # noinspection PyUnusedLocal
 from collections import OrderedDict
 
+
 class PricingRules(object):
     def __init__(self):
         self._rules = {}
@@ -17,6 +18,7 @@ class PricingRules(object):
     @property
     def rules(self):
         return OrderedDict(reversed(sorted(self._rules.items())))
+
 
 # skus = unicode string
 def checkout(skus):
@@ -47,8 +49,8 @@ def checkout(skus):
                         price -= price_rules.get_individual_item_price(item_details['Free'])
                         original_basket.replace(item_details['Free'], '', 1)
 
-
     if len(basket) > 0:
         return -1
 
     return price
+

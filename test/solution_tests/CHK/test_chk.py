@@ -5,6 +5,9 @@ class TestCheckout():
     def test_simple_checkout(self):
         assert checkout_solution.checkout('ABC') == 100
 
+    def test_single_item(self):
+        assert checkout_solution.checkout('E') == 40
+
     def test_simple_offers(self):
         assert checkout_solution.checkout('ABCABAD') == 210
 
@@ -13,4 +16,5 @@ class TestCheckout():
 
     def test_invalid_item(self):
         assert checkout_solution.checkout('ABF') == -1
+
 
