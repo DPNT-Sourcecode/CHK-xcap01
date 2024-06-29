@@ -45,7 +45,8 @@ class PricingRules(object):
             if "for" in offer:
                 self.__add_rule(offer[1], int(offer[7:]), int(offer[0]))
             elif "get one" in offer:
-                if offer[1] == sku:
+                if offer[11] == sku:
+                    self.__add_rule(offer[1], unit_price * int(offer[0]), int(offer[0]) + 1)
 
 
     def initialize(self):
@@ -144,6 +145,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
