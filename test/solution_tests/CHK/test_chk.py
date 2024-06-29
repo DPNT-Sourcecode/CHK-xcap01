@@ -30,7 +30,8 @@ class TestCheckout():
         assert checkout_solution.checkout('FFF') == 20
 
     def test_invalid_item(self):
-        assert checkout_solution.checkout('ABG') == -1
+        assert checkout_solution.checkout('ABZ') == -1
+
 
 
 

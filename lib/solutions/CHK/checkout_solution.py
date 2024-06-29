@@ -19,18 +19,21 @@ class PricingRules(object):
     def rules(self):
         return OrderedDict(reversed(sorted(self._rules.items())))
 
+
 price_rules = PricingRules()
-price_rules.add_rule('E', 80, 2, 'B')
 price_rules.add_rule('B', 30)
 price_rules.add_rule('C', 20)
 price_rules.add_rule('D', 15)
 price_rules.add_rule('A', 50)
 price_rules.add_rule('E', 40)
 price_rules.add_rule('F', 10)
-price_rules.add_rule('F', 20, 3)
+price_rules.add_rule('G', 20)
 price_rules.add_rule('A', 130, 3)
-price_rules.add_rule('B', 45, 2)
 price_rules.add_rule('A', 200, 5)
+price_rules.add_rule('B', 45, 2)
+price_rules.add_rule('E', 80, 2, 'B')
+price_rules.add_rule('F', 20, 3)
+
 
 # skus = unicode string
 def checkout(skus):
