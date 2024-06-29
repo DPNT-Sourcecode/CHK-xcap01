@@ -42,8 +42,11 @@ class PricingRules(object):
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def __add_combo_rule(self, skus, price, quantity):
-        if skus not in self._combo_rules:
-            self._combo_rules[skus] = {}
+        for sku in skus:
+            if sku not in self._combo_rules:
+                self._combo_rules[sku] = {}
+
+            self._combo_rules[sku] = {"Skus": set(skus) - set(sku), "Price": price, "Quantity": quantity}
 
     def __process_special_offers(self, sku, unit_price, offer_detail):
         for offer in offer_detail.split(', '):
@@ -154,8 +157,3 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
-
-
-
-
-
