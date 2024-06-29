@@ -31,8 +31,7 @@ class PricingRules(object):
             | W    | 20    |                        |
             | X    | 90    |                        |
             | Y    | 10    |                        |
-            | Z    | 50    |                        |
-            '''
+            | Z    | 50    |                        |'''
 
     def __add_rule(self, item, price, quantity=1, free_item=''):
         if quantity not in self._rules:
@@ -41,9 +40,10 @@ class PricingRules(object):
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def initialize(self):
-        for n, line in enumerate(self._given_rules[1:-2].split('\n')):
+        for n, line in enumerate(self._given_rules[1:-1].split('\n')):
             values = [value.strip() for value in line.split('|')[1:-1]]
-            self.__add_rule(values[0], values[1])
+            if len(values) > 0:
+                self.__add_rule(values[0], values[1])
 
     def get_individual_item_price(self, item):
         return self.rules[1][item]['Price']
@@ -131,11 +131,3 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
-
-
-
-
-
-
-
-
