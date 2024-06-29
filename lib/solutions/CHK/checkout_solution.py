@@ -25,9 +25,17 @@ def checkout(skus):
     price_rules.add_rule('A', 130, 3)
     price_rules.add_rule('B', 45, 2)
 
-    for quantity, item in price_rules.rules.items():
-        for sku in skus:
+    price = 0
 
+    items = ''.join(sorted(skus))
 
+    for quantity, items in price_rules.rules.items():
+        for item, item_price in items.items():
+            item_pattern = item * quantity
+            if item_pattern in items:
+                price += item_price * skus.count(item_pattern)
+                items = items.replace(item_pattern, '')
+            else:
+                return -1
 
-
+    return price
