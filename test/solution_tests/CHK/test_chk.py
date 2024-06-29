@@ -23,7 +23,14 @@ class TestCheckout():
     def test_complex_offers(self):
         assert checkout_solution.checkout('EAAAAAAAABBE') == 440
 
+    def test_missed_f_offers(self):
+        assert checkout_solution.checkout('FF') == 20
+
+    def test_free_f(self):
+        assert checkout_solution.checkout('FFF') == 20
+
     def test_invalid_item(self):
         assert checkout_solution.checkout('ABG') == -1
+
 
 

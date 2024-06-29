@@ -27,7 +27,7 @@ price_rules.add_rule('D', 15)
 price_rules.add_rule('A', 50)
 price_rules.add_rule('E', 40)
 price_rules.add_rule('F', 10)
-price_rules.add_rule('F', 10, 2)
+price_rules.add_rule('F', 20, 3)
 price_rules.add_rule('A', 130, 3)
 price_rules.add_rule('B', 45, 2)
 price_rules.add_rule('A', 200, 5)
@@ -62,6 +62,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
