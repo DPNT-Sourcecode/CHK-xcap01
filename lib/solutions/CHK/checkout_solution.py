@@ -9,7 +9,10 @@ class PricingRules(object):
         if quantity not in self._rules:
             self._rules[quantity] = {}
 
-        self._rules[quantity][item] = price
+        self._rules[quantity][free_item][item] = price
+
+    def get_individual_item_price(self, item):
+        return self.rules[1][''][item]
 
     @property
     def rules(self):
@@ -33,14 +36,16 @@ def checkout(skus):
     basket = ''.join(sorted(skus))
     original_basket = basket
 
-    for quantity, items in price_rules.rules.items():
+    for quantity, free_item, items in price_rules.rules.items():
         for item, item_price in items.items():
             item_pattern = item * quantity
             if item_pattern in basket:
                 price += item_price * basket.count(item_pattern)
+
                 basket = basket.replace(item_pattern, '')
 
     if len(basket) > 0:
         return -1
 
     return price
+

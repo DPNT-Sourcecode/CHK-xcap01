@@ -9,8 +9,9 @@ class TestCheckout():
         assert checkout_solution.checkout('ABCABAD') == 210
 
     def test_complex_offers(self):
-        assert checkout_solution.checkout('AAABB') //
+        assert checkout_solution.checkout('AAABB') == 2 #will fail
 
     def test_invalid_item(self):
         assert checkout_solution.checkout('ABF') == -1
+
 
