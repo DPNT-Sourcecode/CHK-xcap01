@@ -65,9 +65,3 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
-
-
-
-
-
-
