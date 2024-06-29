@@ -49,7 +49,7 @@ def calculate_basket_cost(skus, apply_discount):
                 price += item_details['Price'] * basket.count(item_pattern)
                 if apply_discount and item_details['Free'] != '':
                     if item_details['Free'] in updated_basket:
-                        updated_basket = updated_basket.replace(item_details['Free'], '', 1)
+                        updated_basket = updated_basket.replace(item_details['Free'], '', basket.count(item_pattern))
                         discounted_items += item_details['Free'] * basket.count(item_pattern)
                 basket = basket.replace(item_pattern, '')
 
@@ -60,6 +60,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
