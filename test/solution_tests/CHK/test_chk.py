@@ -38,6 +38,3 @@ class TestCheckout():
     def test_invalid_item(self):
         assert checkout_solution.checkout('AB1') == -1
 
-
-
-
