@@ -33,10 +33,10 @@ def checkout(skus):
         for item, item_price in items.items():
             item_pattern = item * quantity
             if item_pattern in basket:
-                price += item_price * skus.count(item_pattern)
+                price += item_price * basket.count(item_pattern)
                 basket = basket.replace(item_pattern, '')
 
-        if len(basket) > 0:
-            return -1
+    if len(basket) > 0:
+        return -1
 
     return price
