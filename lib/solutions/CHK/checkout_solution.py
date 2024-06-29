@@ -21,17 +21,17 @@ class PricingRules(object):
 
 
 price_rules = PricingRules()
+price_rules.add_rule('A', 50)
 price_rules.add_rule('B', 30)
 price_rules.add_rule('C', 20)
 price_rules.add_rule('D', 15)
-price_rules.add_rule('A', 50)
 price_rules.add_rule('E', 40)
 price_rules.add_rule('F', 10)
 price_rules.add_rule('G', 20)
 price_rules.add_rule('H', 10)
 price_rules.add_rule('I', 35)
 price_rules.add_rule('J', 60)
-price_rules.add_rule('K', 80)
+price_rules.add_rule('K', 70)
 price_rules.add_rule('L', 90)
 price_rules.add_rule('M', 15)
 price_rules.add_rule('N', 40)
@@ -54,7 +54,7 @@ price_rules.add_rule('E', 80, 2, 'B')
 price_rules.add_rule('F', 20, 3)
 price_rules.add_rule('H', 45, 5)
 price_rules.add_rule('H', 80, 10)
-price_rules.add_rule('K', 150, 2)
+price_rules.add_rule('K', 120, 2)
 price_rules.add_rule('N', 120, 3, 'M')
 price_rules.add_rule('P', 200, 5)
 price_rules.add_rule('Q', 80, 3)
@@ -93,6 +93,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
