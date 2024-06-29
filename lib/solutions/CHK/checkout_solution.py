@@ -61,7 +61,7 @@ price_rules.add_rule('Q', 80, 3)
 price_rules.add_rule('R', 150, 3, 'Q')
 price_rules.add_rule('U', 120, 4)
 price_rules.add_rule('V', 90, 2)
-price_rules.add_rule('V', 150, 3)
+price_rules.add_rule('V', 130, 3)
 
 # skus = unicode string
 def checkout(skus):
@@ -93,5 +93,6 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
