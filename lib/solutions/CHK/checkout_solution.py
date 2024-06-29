@@ -5,13 +5,47 @@ from collections import OrderedDict
 class PricingRules(object):
     def __init__(self):
         self._rules = {}
+        self._given_rules = '''
+            | A    | 50    | 3A for 130, 5A for 200 |
+            | B    | 30    | 2B for 45              |
+            | C    | 20    |                        |
+            | D    | 15    |                        |
+            | E    | 40    | 2E get one B free      |
+            | F    | 10    | 2F get one F free      |
+            | G    | 20    |                        |
+            | H    | 10    | 5H for 45, 10H for 80  |
+            | I    | 35    |                        |
+            | J    | 60    |                        |
+            | K    | 80    | 2K for 150             |
+            | L    | 90    |                        |
+            | M    | 15    |                        |
+            | N    | 40    | 3N get one M free      |
+            | O    | 10    |                        |
+            | P    | 50    | 5P for 200             |
+            | Q    | 30    | 3Q for 80              |
+            | R    | 50    | 3R get one Q free      |
+            | S    | 30    |                        |
+            | T    | 20    |                        |
+            | U    | 40    | 3U get one U free      |
+            | V    | 50    | 2V for 90, 3V for 130  |
+            | W    | 20    |                        |
+            | X    | 90    |                        |
+            | Y    | 10    |                        |
+            | Z    | 50    |                        |
+            '''
 
-    def add_rule(self, item, price, quantity=1, free_item=''):
+    def __add_rule(self, item, price, quantity=1, free_item=''):
         if quantity not in self._rules:
             self._rules[quantity] = {}
 
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
+    def initialize(self):
+
+        for n, line in enumerate(self._given_rules[1:-1].split('\n')):
+            values = [value.strip() for value in line.split('|')[1:-1]]
+            self.__add_rule(values[0], values[1])
+            
     def get_individual_item_price(self, item):
         return self.rules[1][item]['Price']
 
@@ -20,44 +54,8 @@ class PricingRules(object):
         return OrderedDict(reversed(sorted(self._rules.items())))
 
 
-given_rules = '''
-| A    | 50    | 3A for 130, 5A for 200 |
-| B    | 30    | 2B for 45              |
-| C    | 20    |                        |
-| D    | 15    |                        |
-| E    | 40    | 2E get one B free      |
-| F    | 10    | 2F get one F free      |
-| G    | 20    |                        |
-| H    | 10    | 5H for 45, 10H for 80  |
-| I    | 35    |                        |
-| J    | 60    |                        |
-| K    | 80    | 2K for 150             |
-| L    | 90    |                        |
-| M    | 15    |                        |
-| N    | 40    | 3N get one M free      |
-| O    | 10    |                        |
-| P    | 50    | 5P for 200             |
-| Q    | 30    | 3Q for 80              |
-| R    | 50    | 3R get one Q free      |
-| S    | 30    |                        |
-| T    | 20    |                        |
-| U    | 40    | 3U get one U free      |
-| V    | 50    | 2V for 90, 3V for 130  |
-| W    | 20    |                        |
-| X    | 90    |                        |
-| Y    | 10    |                        |
-| Z    | 50    |                        |
-'''
-
-def rules_table_to_rules(rules):
-    rules = PricingRules()
-    for n, line in enumerate(given_rules[1:-1].split('\n')):
-        values = [value.strip() for value in line.split('|')[1:-1]]
-        rules.add_rule(values[0], values[1])
-    return rules
-
-
 price_rules = rules_table_to_rules(given_rules)
+
 
 # price_rules = PricingRules()
 # price_rules.add_rule('A', 50)
@@ -132,6 +130,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
