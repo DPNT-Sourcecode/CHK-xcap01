@@ -54,10 +54,10 @@ def rules_table_to_rules(rules):
     for n, line in enumerate(given_rules[1:-1].split('\n')):
         values = [value.strip() for value in line.split('|')[1:-1]]
         rules.add_rule(values[0], values[1])
+    return rules
 
 
 price_rules = rules_table_to_rules(given_rules)
-
 
 # price_rules = PricingRules()
 # price_rules.add_rule('A', 50)
@@ -132,6 +132,7 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
+
 
 
 
