@@ -21,8 +21,9 @@ class TestCheckout():
         assert checkout_solution.checkout('ABCABAD') == 210
 
     def test_complex_offers(self):
-        assert checkout_solution.checkout('EAAAAAAAABBE') == 425
+        assert checkout_solution.checkout('EAAAAAAAABBE') == 440
 
     def test_invalid_item(self):
-        assert checkout_solution.checkout('ABF') == -1
+        assert checkout_solution.checkout('ABG') == -1
+
 
