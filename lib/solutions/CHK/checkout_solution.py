@@ -100,7 +100,9 @@ def calculate_basket_cost(skus, apply_discount):
 
     if apply_discount:
         for combo_rule in price_rules.combo_rules.items():
-            print (combo_rule)
+            if combo_rule[0] in basket:
+                relevant_skus = set(combo_rule[0]).union(set(combo_rule[1]['Skus']))
+
 
     updated_basket = basket
     discounted_items = ''
@@ -123,10 +125,3 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price
-
-
-
-
-
-
-
