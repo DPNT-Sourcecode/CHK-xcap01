@@ -64,8 +64,12 @@ class Checkout:
 
     def __validate_basket(self):
         valid_items = []
-        for quantity, item in self._pricing_rules.rules.items():
-            valid_items.append(item)
+        for quantity, items in self._pricing_rules.rules.items():
+            for item, item_details in items.items():
+                valid_items.append(item)
+        for basket_item in self._basket:
+            if basket_item not in valid_items:
+                return False
         return True
 
     def calculate_basket_cost(self, skus, apply_discount=True):
@@ -152,4 +156,5 @@ def checkout(skus):
 
     checkout_solution = Checkout(pricing_rules)
     return checkout_solution.calculate_basket_cost(skus)
+
 
