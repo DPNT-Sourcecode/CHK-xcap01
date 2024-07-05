@@ -63,70 +63,82 @@ class Checkout:
         self._pricing_rules = pricing_rules
         self._basket = {}
 
-    def calculate_basket_cost(self):
+    def calculate_basket_cost(self, skus, apply_discount=True):
+        price = 0
+        combo_price = 0
+        self._basket = ''.join(sorted(skus))
+
+        if apply_discount:
+            for sku, combo_rules in self._pricing_rules.combo_rules.items():
+                for combo_rule in combo_rules:
+                    found = sum(self._basket.count(s) for s in combo_rule['Skus'].union({sku}))
+                    number_of_discounts = math.floor(found / combo_rule['Quantity'])
+                    while number_of_discounts > 0:
+                        combo_price += combo_rule['Price']
+                        removed = 0
+                        for s in combo_rule['Skus'].union({sku}):
+                            while s in self._basket and removed < combo_rule['Quantity']:
+                                self._basket = self._basket.replace(s, '', 1)
+                                removed += 1
+                        number_of_discounts -= 1
+
+        updated_basket = self._basket
+        discounted_items = ''
+
+        for quantity, items in self._pricing_rules.rules.items():
+            for item, item_details in items.items():
+                item_pattern = item * quantity
+                while item_pattern in self._basket:
+                    price += item_details['Price']
+                    if apply_discount and item_details['Free']:
+                        if item_details['Free'] in updated_basket:
+                            updated_basket = updated_basket.replace(item_details['Free'], '', 1)
+                            discounted_items += item_details['Free']
+                    self._basket = self._basket.replace(item_pattern, '', 1)
+
+        for item in self._basket:
+            price += self._pricing_rules.get_individual_item_price(item)
+
+        if discounted_items:
+            return self.calculate_basket_cost(updated_basket, False)
+
+        return price + combo_price
 
 # skus = unicode string
 def checkout(skus):
-    return calculate_basket_cost(skus, True)
+    rules = '''
+            | A    | 50    | 3A for 130, 5A for 200          |
+            | B    | 30    | 2B for 45                       |
+            | C    | 20    |                                 |
+            | D    | 15    |                                 |
+            | E    | 40    | 2E get one B free               |
+            | F    | 10    | 2F get one F free               |
+            | G    | 20    |                                 |
+            | H    | 10    | 5H for 45, 10H for 80           |
+            | I    | 35    |                                 |
+            | J    | 60    |                                 |
+            | K    | 70    | 2K for 120                      |
+            | L    | 90    |                                 |
+            | M    | 15    |                                 |
+            | N    | 40    | 3N get one M free               |
+            | O    | 10    |                                 |
+            | P    | 50    | 5P for 200                      |
+            | Q    | 30    | 3Q for 80                       |
+            | R    | 50    | 3R get one Q free               |
+            | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | U    | 40    | 3U get one U free               |
+            | V    | 50    | 2V for 90, 3V for 130           |
+            | W    | 20    |                                 |
+            | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+            | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
+        '''
 
+    pricing_rules = PricingRules()
+    pricing_rules.load_rules(rules)
+    return calculate_basket_cost(skus)
 
-def calculate_basket_cost(skus, apply_discount):
-    price = 0
-    combo_price = 0
-    basket = ''.join(sorted(skus))
-
-    if apply_discount:
-        for combo_rule in price_rules.combo_rules.items():
-            found = 0
-            if combo_rule[0] in basket:
-                relevant_skus = set(combo_rule[0]).union(set(combo_rule[1]['Skus']))
-                sku_prices = {}
-                for sku in relevant_skus:
-                    sku_price = price_rules.get_individual_item_price(sku)
-                    if sku_price not in sku_prices:
-                        sku_prices[sku_price] = set(sku)
-                    else:
-                        sku_prices[sku_price].add(sku)
-                for sku in relevant_skus:
-                    found += basket.count(sku)
-                number_of_discounts = math.floor(found / int(combo_rule[1]['Quantity']))
-                while number_of_discounts > 0:
-                    removed = 0
-                    combo_price += int(combo_rule[1]['Price'])
-                    price_order = list(reversed(sorted(sku_prices.keys())))
-                    while removed < int(combo_rule[1]['Quantity']):
-                        for p in price_order:
-                            for sku in sku_prices[p]:
-                                if removed == int(combo_rule[1]['Quantity']):
-                                    break
-                                while sku in basket:
-                                    basket = basket.replace(sku, '', 1)
-                                    removed += 1
-                                    if removed == int(combo_rule[1]['Quantity']):
-                                        break
-                    number_of_discounts -= 1
-
-    updated_basket = basket
-    discounted_items = ''
-
-    for quantity, items in price_rules.rules.items():
-        for item, item_details in items.items():
-            item_pattern = item * quantity
-            if item_pattern in basket:
-                price += item_details['Price'] * basket.count(item_pattern)
-                if apply_discount and item_details['Free'] != '':
-                    if item_details['Free'] in updated_basket:
-                        updated_basket = updated_basket.replace(item_details['Free'], '', basket.count(item_pattern))
-                        discounted_items += item_details['Free'] * basket.count(item_pattern)
-                basket = basket.replace(item_pattern, '')
-
-    if len(basket) > 0:
-        return -1
-
-    if len(discounted_items) > 0:
-        return calculate_basket_cost(updated_basket, False)
-
-    return price + combo_price
 
 
 
