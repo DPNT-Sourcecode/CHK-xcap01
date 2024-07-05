@@ -80,7 +80,7 @@ class Checkout:
                 while to_remove > 0:
                     for sku in discounted_items:
                         while sku[0] in self._basket and to_remove > 0:
-                            self._basket.replace(sku[0], '', 1)
+                            self._basket = self._basket.replace(sku[0], '', 1)
                             to_remove -= 1
 
         #if apply_discount:
@@ -158,7 +158,6 @@ def checkout(skus):
     checkout_solutiion = Checkout(pricing_rules)
     return checkout_solutiion.calculate_basket_cost(skus)
 
-print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
 
 
 
