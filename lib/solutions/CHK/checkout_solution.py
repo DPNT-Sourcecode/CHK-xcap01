@@ -63,6 +63,8 @@ class Checkout:
         self._pricing_rules = pricing_rules
         self._basket = {}
 
+    def calculate_basket_cost(self):
+
 # skus = unicode string
 def checkout(skus):
     return calculate_basket_cost(skus, True)
@@ -125,5 +127,6 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price + combo_price
+
 
 
