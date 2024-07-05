@@ -137,7 +137,9 @@ def checkout(skus):
 
     pricing_rules = PricingRules()
     pricing_rules.load_rules(rules)
-    return calculate_basket_cost(skus)
+    checkout_solution = Checkout(pricing_rules)
+    return checkout_solution.calculate_basket_cost(skus)
+
 
 
 
