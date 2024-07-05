@@ -2,7 +2,6 @@
 from collections import OrderedDict
 import math
 
-
 class PricingRules:
     def __init__(self):
         self._rules = {}
@@ -36,8 +35,8 @@ class PricingRules:
                 else:
                     self.__add_rule(offer[1], unit_price * int(offer[0]), int(offer[0]), offer[11])
 
-    def initialize(self):
-        for n, line in enumerate(self._given_rules[1:-1].split('\n')):
+    def load_rules(self, rules):
+        for n, line in enumerate(rules[1:-1].split('\n')):
             values = [value.strip() for value in line.split('|')[1:-1]]
             sku = values[0]
             unit_price = int(values[1])
@@ -59,8 +58,10 @@ class PricingRules:
         return OrderedDict(reversed(sorted(self._combo_rules.items())))
 
 
-price_rules = PricingRules()
-price_rules.initialize()
+class Checkout:
+    def __init__(self, pricing_rules):
+        self._pricing_rules = pricing_rules
+        self._basket = {}
 
 # skus = unicode string
 def checkout(skus):
@@ -124,4 +125,5 @@ def calculate_basket_cost(skus, apply_discount):
         return calculate_basket_cost(updated_basket, False)
 
     return price + combo_price
+
 
