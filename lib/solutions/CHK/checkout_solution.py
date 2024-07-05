@@ -25,11 +25,11 @@ class PricingRules:
         for offer in offer_detail.split(', '):
             offer = offer.strip()
             if "buy any" in offer:
-                elements = offer.split(" ")
-                self.__add_combo_rule(elements[4][1:-1].split(','), int(elements[6]), int(elements[2]))
+                parts = offer.split(" ")
+                self.__add_combo_rule(parts[4][1:-1].split(','), int(parts[6]), int(parts[2]))
             elif "for" in offer:
-                elements = offer.split(" ")
-                self.__add_rule(elements[0][-1], int(elements[2]), int(elements[0][:-1]))
+                parts = offer.split(" ")
+                self.__add_rule(parts[0][-1], int(parts[2]), int(parts[0][:-1]))
             elif "get one" in offer:
                 if offer[11] == sku:
                     self.__add_rule(offer[1], unit_price * int(offer[0]), int(offer[0]) + 1)
@@ -145,4 +145,5 @@ def checkout(skus):
     return checkout_solutiion.calculate_basket_cost(skus)
 
 print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
 
