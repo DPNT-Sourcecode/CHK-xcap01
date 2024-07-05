@@ -78,9 +78,10 @@ class Checkout:
                     discounted_items.append(tuple((sku, self._pricing_rules.get_individual_item_price(sku))))
                 discounted_items = sorted(discounted_items, key=lambda x: x[1], reverse=True)
                 while to_remove > 0:
-                    for
-
-
+                    for sku in discounted_items:
+                        while sku[0] in self._basket and to_remove > 0:
+                            self._basket.replace(sku[0], '', 1)
+                            to_remove -= 1
 
         #if apply_discount:
             #for sku, combo_rules in self._pricing_rules.combo_rules.items():
@@ -158,6 +159,7 @@ def checkout(skus):
     return checkout_solutiion.calculate_basket_cost(skus)
 
 print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
 
 
 
