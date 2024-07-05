@@ -37,14 +37,14 @@ class PricingRules:
                     self.__add_rule(offer[1], unit_price * int(offer[0]), int(offer[0]), offer[11])
 
     def load_rules(self, rules):
-        for n, line in enumerate(rules[1:-1].split('\n')):
+        for line in rules.strip().split('\n'):
             values = [value.strip() for value in line.split('|')[1:-1]]
             sku = values[0]
             unit_price = int(values[1])
-            self.__add_rule(values[0], int(values[1]))
+            self.__add_rule(sku, unit_price)
             if len(values) > 2:
                 offer_detail = values[2]
-                if len(offer_detail) > 0:
+                if offer_detail:
                     self.__process_special_offers(sku, unit_price, offer_detail)
 
     def get_individual_item_price(self, item):
@@ -108,41 +108,44 @@ class Checkout:
 
 # skus = unicode string
 def checkout(skus):
-    rules = '''
-            | A    | 50    | 3A for 130, 5A for 200          |
-            | B    | 30    | 2B for 45                       |
-            | C    | 20    |                                 |
-            | D    | 15    |                                 |
-            | E    | 40    | 2E get one B free               |
-            | F    | 10    | 2F get one F free               |
-            | G    | 20    |                                 |
-            | H    | 10    | 5H for 45, 10H for 80           |
-            | I    | 35    |                                 |
-            | J    | 60    |                                 |
-            | K    | 70    | 2K for 120                      |
-            | L    | 90    |                                 |
-            | M    | 15    |                                 |
-            | N    | 40    | 3N get one M free               |
-            | O    | 10    |                                 |
-            | P    | 50    | 5P for 200                      |
-            | Q    | 30    | 3Q for 80                       |
-            | R    | 50    | 3R get one Q free               |
-            | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-            | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-            | U    | 40    | 3U get one U free               |
-            | V    | 50    | 2V for 90, 3V for 130           |
-            | W    | 20    |                                 |
-            | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
-            | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
-            | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
-        '''
+
+    rules='''
+        | A    | 50    | 3A for 130, 5A for 200          |
+        | B    | 30    | 2B for 45                       |
+        | C    | 20    |                                 |
+        | D    | 15    |                                 |
+        | E    | 40    | 2E get one B free               |
+        | F    | 10    | 2F get one F free               |
+        | G    | 20    |                                 |
+        | H    | 10    | 5H for 45, 10H for 80           |
+        | I    | 35    |                                 |
+        | J    | 60    |                                 |
+        | K    | 70    | 2K for 120                      |
+        | L    | 90    |                                 |
+        | M    | 15    |                                 |
+        | N    | 40    | 3N get one M free               |
+        | O    | 10    |                                 |
+        | P    | 50    | 5P for 200                      |
+        | Q    | 30    | 3Q for 80                       |
+        | R    | 50    | 3R get one Q free               |
+        | S    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+        | T    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+        | U    | 40    | 3U get one U free               |
+        | V    | 50    | 2V for 90, 3V for 130           |
+        | W    | 20    |                                 |
+        | X    | 17    | buy any 3 of (S,T,X,Y,Z) for 45 |
+        | Y    | 20    | buy any 3 of (S,T,X,Y,Z) for 45 |
+        | Z    | 21    | buy any 3 of (S,T,X,Y,Z) for 45 |
+    '''
 
     pricing_rules = PricingRules()
     pricing_rules.load_rules(rules)
-    checkout_solution = Checkout(pricing_rules)
-    return checkout_solution.calculate_basket_cost(skus)
+
+    checkout_solutiion = Checkout(pricing_rules)
+    return checkout_solutiion.calculate_basket_cost(skus)
 
 print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
 
 
 
