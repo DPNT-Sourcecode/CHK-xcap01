@@ -57,4 +57,3 @@ class TestCheckout():
     def test_lots_of_H(self):
         assert checkout_solution.checkout('HHHHHHHHHH') == 80
 
-

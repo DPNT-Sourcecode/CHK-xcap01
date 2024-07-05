@@ -62,16 +62,19 @@ class Checkout:
         self._pricing_rules = pricing_rules
         self._basket = {}
 
-    def validate_basket(self, skus):
-        valid_items = self._pricing_rules.rules.
+    def __validate_basket(self, skus):
+        valid_items = self._pricing_rules.rules.keys()
+        return True
 
     def calculate_basket_cost(self, skus, apply_discount=True):
         price = 0
         combo_price = 0
         self._basket = ''.join(sorted(skus))
 
+        if not __Val
+
         if apply_discount:
-            for skus, combo_rule in self._pricing_rules.combo_rules.items()
+            for skus, combo_rule in self._pricing_rules.combo_rules.items():
                 found = sum(self._basket.count(s) for s in skus)
                 number_of_discounts = math.floor(found / combo_rule['Quantity'])
                 combo_price += combo_rule['Price'] * number_of_discounts
@@ -146,11 +149,3 @@ def checkout(skus):
 
     checkout_solution = Checkout(pricing_rules)
     return checkout_solution.calculate_basket_cost(skus)
-
-
-
-
-
-
-
-
