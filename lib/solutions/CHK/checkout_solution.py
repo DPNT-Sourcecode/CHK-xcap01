@@ -101,7 +101,7 @@ class Checkout:
             price += self._pricing_rules.get_individual_item_price(item)
 
         if discounted_items:
-            return self.calculate_basket_cost(updated_basket, False)
+            return self.calculate_basket_cost(updated_basket, False) + combo_price
 
         return price + combo_price
 
@@ -141,8 +141,9 @@ def checkout(skus):
     pricing_rules = PricingRules()
     pricing_rules.load_rules(rules)
 
-    checkout_solutiion = Checkout(pricing_rules)
-    return checkout_solutiion.calculate_basket_cost(skus)
+    checkout_solution = Checkout(pricing_rules)
+    return checkout_solution.calculate_basket_cost(skus)
+
 
 
 
