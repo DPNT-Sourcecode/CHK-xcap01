@@ -83,20 +83,6 @@ class Checkout:
                             self._basket = self._basket.replace(sku[0], '', 1)
                             to_remove -= 1
 
-        #if apply_discount:
-            #for sku, combo_rules in self._pricing_rules.combo_rules.items():
-            #    for combo_rule in combo_rules:
-            #        found = sum(self._basket.count(s) for s in combo_rule['Skus'].union({sku}))
-            #        number_of_discounts = math.floor(found / combo_rule['Quantity'])
-            #        while number_of_discounts > 0:
-            #            combo_price += combo_rule['Price']
-            #            removed = 0
-            #            for s in combo_rule['Skus'].union({sku}):
-            #                while s in self._basket and removed < combo_rule['Quantity']:
-            #                    self._basket = self._basket.replace(s, '', 1)
-            #                    removed += 1
-            #            number_of_discounts -= 1
-
         updated_basket = self._basket
         discounted_items = ''
 
@@ -157,6 +143,7 @@ def checkout(skus):
 
     checkout_solutiion = Checkout(pricing_rules)
     return checkout_solutiion.calculate_basket_cost(skus)
+
 
 
 
