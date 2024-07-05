@@ -2,6 +2,7 @@
 from collections import OrderedDict
 import math
 
+
 class PricingRules:
     def __init__(self):
         self._rules = {}
@@ -104,6 +105,7 @@ class Checkout:
 
         return price + combo_price
 
+
 # skus = unicode string
 def checkout(skus):
     rules = '''
@@ -139,6 +141,7 @@ def checkout(skus):
     pricing_rules.load_rules(rules)
     checkout_solution = Checkout(pricing_rules)
     return checkout_solution.calculate_basket_cost(skus)
+
 
 
 
