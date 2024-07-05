@@ -67,6 +67,11 @@ class Checkout:
         combo_price = 0
         self._basket = ''.join(sorted(skus))
 
+        if apply_discount:
+            for skus, combo_rules in self._pricing_rules.combo_rules.items():
+                for combo_rule in combo_rules:
+                    print(combo_rule)
+
         #if apply_discount:
             #for sku, combo_rules in self._pricing_rules.combo_rules.items():
             #    for combo_rule in combo_rules:
@@ -143,6 +148,7 @@ def checkout(skus):
     return checkout_solutiion.calculate_basket_cost(skus)
 
 print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
 
 
 
