@@ -142,6 +142,9 @@ def checkout(skus):
     checkout_solution = Checkout(pricing_rules)
     return checkout_solution.calculate_basket_cost(skus)
 
+print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
+
 
 
 
