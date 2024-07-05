@@ -15,7 +15,6 @@ class PricingRules:
         self._rules[quantity][item] = {"Price": price, "Free": free_item}
 
     def __add_combo_rule(self, skus, price, quantity):
-
         if skus not in self._combo_rules:
             self._combo_rules[skus] = {}
             self._combo_rules[skus] = {"Price": price, "Quantity": quantity}
@@ -25,7 +24,7 @@ class PricingRules:
             offer = offer.strip()
             if "buy any" in offer:
                 parts = offer.split(" ")
-                self.__add_combo_rule(parts[4][1:-1].split(','), int(parts[6]), int(parts[2]))
+                self.__add_combo_rule(parts[4][1:-1].replace(',',''), int(parts[6]), int(parts[2]))
             elif "for" in offer:
                 parts = offer.split(" ")
                 self.__add_rule(parts[0][-1], int(parts[2]), int(parts[0][:-1]))
@@ -144,6 +143,7 @@ def checkout(skus):
     return checkout_solutiion.calculate_basket_cost(skus)
 
 print(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+
 
 
 
